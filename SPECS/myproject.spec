@@ -26,8 +26,7 @@ mkdir -p $RPM_BUILD_ROOT/usr/local/bin
 mkdir -p $RPM_BUILD_ROOT/etc/systemd/system
 
 # 安装脚本
-install -m 755 %{SOURCE0} $RPM_BUILD_ROOT/usr/local/bin/update_kernel_params.sh
-
+install -m 755 %{_builddir}/%{name}-%{version}/update_kernel_params.sh $RPM_BUILD_ROOT/usr/local/bin/update_kernel_params.sh
 # 安装 systemd 服务文件
 install -m 644 update-proc-params.service $RPM_BUILD_ROOT/etc/systemd/system/update-proc-params.service
 
