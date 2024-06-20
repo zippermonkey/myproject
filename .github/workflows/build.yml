@@ -1,0 +1,37 @@
+name: Build RPM
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: fedora-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install RPM build tools
+      run: sudo dnf install -y rpm-build
+
+    - name: Create tarball
+      run: tar czvf myproject-1.0.tar.gz update_kernel_params.sh update-proc-params.service
+
+    - name: Create RPM build directories
+      run: mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+
+    - name: Move files to RPM build directories
+      run: |
+        mv myproject-1.0.tar.gz ~/rpmbuild/SOURCES/
+        mv SPECS/myproject.spec ~/rpmbuild/SPECS/
+
+    - name: Build RPM package
+      run: rpmbuild -ba ~/rpmbuild/SPECS/myproject.spec
+
+    - name: Upload RPM package
+      uses: actions/upload-artifact@v2
+      with:
+        name: myproject-rpm
+        path: ~/rpmbuild/RPMS/noarch/*.rpm
