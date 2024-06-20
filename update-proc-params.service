@@ -1,0 +1,11 @@
+[Unit]
+Description=Update /proc parameters at startup
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/update_kernel_params.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
