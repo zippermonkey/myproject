@@ -7,14 +7,14 @@ on:
 
 jobs:
   build:
-    runs-on: fedora-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
     - name: Install RPM build tools
-      run: dnf install -y rpm-build rpmdevtools
+      run: sudo apt-get install -y rpm
 
     - name: Create tarball
       run: tar czvf myproject-1.0.tar.gz update_kernel_params.sh update-proc-params.service
