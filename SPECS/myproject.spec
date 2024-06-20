@@ -45,7 +45,6 @@ if [ $1 -eq 0 ]; then
 fi
 
 %files
-%doc README
 /usr/local/bin/update_kernel_params.sh
 /etc/systemd/system/update-proc-params.service
 
